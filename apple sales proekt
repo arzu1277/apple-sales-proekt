@@ -1,0 +1,130 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_PRODUCTS 20
+
+//Структура за продукт
+struct Product {
+    char name[50];
+    char category[20];  // "iPhone", "iPad", or "AirPods"
+    double price;
+    int unitsSold;
+};
+
+// Глобален масив за съхранение на продуктите
+struct Product products[MAX_PRODUCTS];
+int productCount = 0;
+
+// Добавяне на продукт
+void addProduct(char name[], char category[], double price) {
+    if (productCount < MAX_PRODUCTS) {
+        strcpy(products[productCount].name, name);
+        strcpy(products[productCount].category, category);
+        products[productCount].price = price;
+        products[productCount].unitsSold = 0;
+        productCount++;
+    }
+}
+
+// Записване на продажба
+void recordSale(int productIndex, int quantity) {
+    if (productIndex >= 0 && productIndex < productCount) {
+        products[productIndex].unitsSold += quantity;
+    }
+}
+
+// Показване на това кой продукт е най-популярен
+void showMostPopular() {
+    // Преброяване на продажбите по категории
+    int iphoneSales = 0;
+    int ipadSales = 0;
+    int airpodsSales = 0;
+
+    double iphoneRevenue = 0;
+    double ipadRevenue = 0;
+    double airpodsRevenue = 0;
+
+    for (int i = 0; i < productCount; i++) {
+        if (strcmp(products[i].category, "iPhone") == 0) {
+            iphoneSales += products[i].unitsSold;
+            iphoneRevenue += products[i].unitsSold * products[i].price;
+        }
+        else if (strcmp(products[i].category, "iPad") == 0) {
+            ipadSales += products[i].unitsSold;
+            ipadRevenue += products[i].unitsSold * products[i].price;
+        }
+        else if (strcmp(products[i].category, "AirPods") == 0) {
+            airpodsSales += products[i].unitsSold;
+            airpodsRevenue += products[i].unitsSold * products[i].price;
+        }
+    }
+
+    // Отпечатване на резултатите
+    printf("\n========================================\n");
+    printf("   APPLE PRODUCTS POPULARITY REPORT\n");
+    printf("========================================\n\n");
+
+    printf("iPhone:\n");
+    printf("  Units Sold: %d\n", iphoneSales);
+    printf("  Revenue: $%.2f\n\n", iphoneRevenue);
+
+    printf("AirPods:\n");
+    printf("  Units Sold: %d\n", airpodsSales);
+    printf("  Revenue: $%.2f\n\n", airpodsRevenue);
+
+    printf("iPad:\n");
+    printf("  Units Sold: %d\n", ipadSales);
+    printf("  Revenue: $%.2f\n\n", ipadRevenue);
+
+    //Намиране на победителя (категорията с най-много продажби)
+    printf("========================================\n");
+    if (iphoneSales > ipadSales && iphoneSales > airpodsSales) {
+        printf("MOST POPULAR: iPhone\n");
+    }
+    else if (airpodsSales > iphoneSales && airpodsSales > ipadSales) {
+        printf("MOST POPULAR: AirPods\n");
+    }
+    else {
+        printf("MOST POPULAR: iPad\n");
+    }
+    printf("========================================\n");
+}
+
+// Показване на всички продукти.
+void showAllProducts() {
+    printf("\nAll Products:\n\n");
+    for (int i = 0; i < productCount; i++) {
+        printf("%d. %s (%s)\n", i, products[i].name, products[i].category);
+        printf("   Price: $%.2f\n", products[i].price);
+        printf("   Units Sold: %d\n\n", products[i].unitsSold);
+    }
+}
+
+int main() {
+    // Добавяне на продукти (име, категория, цена)
+    addProduct("iPhone 15 Pro Max", "iPhone", 1199.00);
+    addProduct("iPhone 15", "iPhone", 799.00);
+    addProduct("iPad Air", "iPad", 599.00);
+    addProduct("iPad Pro", "iPad", 1099.00);
+    addProduct("AirPods Pro", "AirPods", 249.00);
+    addProduct("AirPods 3", "AirPods", 169.00);
+
+    // Записване на продажби (индекс на продукта, количество)
+    // Много продажби на iPhone
+    recordSale(0, 50);  // iPhone Pro Max: 50 бройки
+    recordSale(1, 80);  // iPhone 15: 80 бройки
+
+    //Средно количество продажби на AirPods
+    recordSale(4, 60);  // AirPods Pro: 60 бройки
+    recordSale(5, 40);  // AirPods 3: 40 бройки
+    // По-малко продажби на iPad
+    recordSale(2, 25);  // iPad Air: 25 бройки
+    recordSale(3, 15);  // iPad Pro: 15 бройки
+
+   //Показване на резултатите
+    showAllProducts();
+    showMostPopular();
+
+    return 0;
+}
+/
