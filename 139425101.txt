@@ -111,7 +111,7 @@ int main() {
 
     // Записване на продажби (индекс на продукта, количество)
     // Много продажби на iPhone
-    recordSale(0, 50);  // iPhone Pro Max: 50 бройки
+    recordSale(0, 50);  // iPhone 15 Pro Max: 50 бройки
     recordSale(1, 80);  // iPhone 15: 80 бройки
 
     //Средно количество продажби на AirPods
@@ -128,3 +128,4 @@ int main() {
     return 0;
 }
 /
+
