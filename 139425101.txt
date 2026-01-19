@@ -28,6 +28,7 @@ void addProduct(char name[], char category[], double price) {
 
 // Записване на продажба
 void recordSale(int productIndex, int quantity) {
+    //Проверявам дали продуктът съществува и добавям продадените бройки към него
     if (productIndex >= 0 && productIndex < productCount) {
         products[productIndex].unitsSold += quantity;
     }
@@ -129,5 +130,6 @@ int main() {
     return 0;
 }
 /
+
 
 
