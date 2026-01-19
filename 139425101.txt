@@ -13,7 +13,7 @@ struct Product {
 
 // Глобален масив за съхранение на продуктите
 struct Product products[MAX_PRODUCTS];
-int productCount = 0;
+int productCount = 0; //Пази колко продукта има в момента
 
 // Добавяне на продукт
 void addProduct(char name[], char category[], double price) {
@@ -43,9 +43,10 @@ void showMostPopular() {
     double iphoneRevenue = 0;
     double ipadRevenue = 0;
     double airpodsRevenue = 0;
-
+    //започваме да броим от 0,въртим цикъла, докато има продукти,след всяко завъртане увеличаваме i с 1
     for (int i = 0; i < productCount; i++) {
         if (strcmp(products[i].category, "iPhone") == 0) {
+            //„Добавямe броя продадени iPhone на текущия продукт към общите продажби на iPhone“
             iphoneSales += products[i].unitsSold;
             iphoneRevenue += products[i].unitsSold * products[i].price;
         }
@@ -128,4 +129,5 @@ int main() {
     return 0;
 }
 /
+
 
